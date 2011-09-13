@@ -1,0 +1,11 @@
+This project generates a simple RDF database containing the
+dependencie information for R repositories.
+
+The R repositories data is extracted from their PACKAGES file.
+See:
+- http://r-forge.r-project.org/src/contrib/PACKAGES
+- http://cran.at.r-project.org/src/contrib/PACKAGES
+- http://www.bioconductor.org/packages/release/bioc/src/contrib/PACKAGES
+- http://www.bioconductor.org/packages/release/data/experiment/src/contrib/PACKAGES
+- http://www.bioconductor.org/packages/release/data/annotation/src/contrib/PACKAGES
+
