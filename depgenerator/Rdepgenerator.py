@@ -150,13 +150,12 @@ class RPackage(object):
         """ Returned the list of 'Depends'. If all_included is True,
         expend this list with 'Suggests' and 'Imports'.
         """
+        dep = []
         if 'Depends' in self.__dict.keys():
-            dep = self.__dict['Depends']
-        else:
-            dep = []
+            dep.extend(self.__dict['Depends'])
+        elif 'Suggests' in self.__dict.keys():
+            dep.extend(self.__dict['Suggests'])
         if all_included:
-            if 'Suggests' in self.__dict.keys():
-                dep.extend(self.__dict['Suggests'])
             if 'Imports' in self.__dict.keys():
                 dep.extend(self.__dict['Imports'])
         return dep
