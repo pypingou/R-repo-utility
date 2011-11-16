@@ -92,7 +92,12 @@ class Builder(object):
         failed = []
         succeed = []
         for build in builds:
-            output = build.get()
+            output = None
+            try:
+                output = build.get()
+            except Exception, err:
+                print "ERROR:", err
+                print "On:", pkg_names[cnt]
             if output:
                 failed.append(pkg_names[cnt])
             else:
