@@ -224,7 +224,6 @@ class Rrepo2rpm(object):
                 tmpknown = set(known)
                 if dep.issubset(tmpknown):
                     self.dependency_level[cnt].append(package)
-                    known.append(pkg_name)
                     del self.packages[pkg_name]
         
         stop = len(self.packages.keys())
