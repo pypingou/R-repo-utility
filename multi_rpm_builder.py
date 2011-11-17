@@ -54,6 +54,7 @@ def build_rpm(packagename, mock_config):
     arg = r2specparser.parse_args('')
     arg.package = packagename
     arg.no_suggest = True
+    arg.no_check = True
     #arg.mock_config = mock_config
     return R2rpm().main(arg)
 
