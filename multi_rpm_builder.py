@@ -40,7 +40,7 @@ def setup_parser():
         help='Input file containing the rpm to build.')
     parser.add_argument('--mock-config', default='fedora-rawhide-i386',
         help='Mock configuration to use (defaults to fedora-rawhide-i386).')
-    parser.add_argument('--ncores',
+    parser.add_argument('--ncores', type=int,
         help='Number of cores to use (all by default)')
     parser.add_argument('--verbose', action='store_true',
         help='Give more info about what is going on.')
@@ -56,6 +56,7 @@ def build_rpm(packagename, mock_config):
     arg.no_suggest = True
     arg.no_check = True
     #arg.mock_config = mock_config
+    arg.mock_config = 'epel-6-x86_64'
     return R2rpm().main(arg)
 
 
