@@ -1,0 +1,22 @@
+!! create tree:
+repo/
+|-- RPMS
+|   `-- entreprise
+|       |-- 6
+|       |   `-- r-repo
+|       |       |-- i386
+|       |       |-- noarch
+|       |       `-- x86_64
+|       `-- 6Server -> 6
+|-- SOURCES
+`-- SRPMS
+
+!! Move/Copy RPMs there:
+cp ~/rpmbuild/RPMS/noarch/* /data/repo/RPMS/entreprise/6/r-repo/noarch/
+cp ~/rpmbuild/RPMS/x86_64/ /data/repo/RPMS/entreprise/6/r-repo/x86_64/
+
+!! Create the repo
+cd /data/repo/RPMS/entreprise/6/r-repo/
+createrepo noarch
+createrepo x86_64
+
