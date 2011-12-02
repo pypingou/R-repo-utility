@@ -54,10 +54,11 @@ def build_rpm(packagename, mock_config):
     arg = r2specparser.parse_args('')
     arg.package = packagename
     arg.no_suggest = True
-    arg.force_spec = True
+    #arg.force_spec = True
     arg.no_check = True
     #arg.mock_config = mock_config
-    arg.mock_config = 'epel-6-x86_64'
+    #arg.mock_config = 'epel-6-x86_64'
+    arg.mock_config = 'epel-6-i386'
     arg.mock_resultdir = '/data/mock/results/'
     arg.keep_logs = True
     return R2rpm().main(arg)
