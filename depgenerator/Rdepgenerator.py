@@ -24,6 +24,7 @@ Main functions for Rrepo2rpm
 import argparse
 import ConfigParser
 import logging
+import os
 import re
 import sys
 import urllib2
@@ -81,6 +82,8 @@ def setup_parser():
         help='Whether you want to use all the dependencies (Depends, Suggests and Imports) or just the Depends (default)')
     parser.add_argument('--config', default='repos.cfg',
         help='A repo configuration files, it will use repos.cfg by default in the current working directory.')
+    parser.add_argument('--exclude-rpm-dir',
+        help='A path directory containing RPMs to be excluded from the list')
     parser.add_argument('--verbose', action='store_true',
         help='Give more info about what is going on.')
     parser.add_argument('--debug', action='store_true',
@@ -190,7 +193,10 @@ class Rrepo2rpm(object):
 
         self.log = get_logger()
         self.log.setLevel(logging.INFO)
+        if args.debug:
+            self.log.setLevel(logging.DEBUG)
 
+        self.known = []
         self.provided = []
         self.packages = {}
         self.dependency_level = {}
@@ -205,6 +211,7 @@ class Rrepo2rpm(object):
             self.dependency_level[cnt] = []
 
         known = self.provided[:]
+        known.extend(self.known)
         for el in self.dependency_level.values():
             for pkg in el:
                 known.append(pkg.get('Package'))
@@ -244,12 +251,25 @@ class Rrepo2rpm(object):
         This function returns the list of R libraries provided by the
         R-core rpm.
         """
-        provided = Popen(['repoquery', '--provides', 'R-core'], 
-            stdout=PIPE).stdout.read()
+        cmd = ['repoquery', '--provides', 'R-core', '--disablerepo=r-repo']
+        self.log.debug(cmd)
+        provided = Popen(cmd, stdout=PIPE).stdout.read()
         self.provided = []
         for prov in provided.split('\n'):
             if prov.startswith('R-'):
                 self.provided.append(prov.split(' ')[0].split('R-')[1])
+
+    def __load_rpm_from_dir(self, directory):
+        """
+        Reads all the file in the given directory and for all R RPM found
+        add them to the known list so that they are excluded from the
+        dependency list afterward.
+        """
+        for entry in os.listdir(directory):
+            if entry.endswith('.rpm') and entry.startswith('R-'):
+                package = entry.split('R-')[1].rsplit('-', 2)[0]
+                if package not in self.known:
+                    self.known.append(package)
 
     def __load_repos(self):
         """
@@ -318,6 +338,8 @@ class Rrepo2rpm(object):
         """
         This is the main function which actually does the work.
         """
+        if args.exclude_rpm_dir:
+            self.__load_rpm_from_dir(args.exclude_rpm_dir)
         self.__get_provided_library()
         self.__load_repos()
         self.__find_dependency_order(all_dep=args.all_dep)
@@ -334,7 +356,12 @@ class Rrepo2rpm(object):
 
         for level in self.dependency_level.keys():
             filename = 'level_%s_packages' % level
-            write_package_list(filename, self.dependency_level[level])
+            pkgs = []
+            for pkg in self.dependency_level[level]:
+                if pkg.get('Package') not in self.known:
+                    pkgs.append(pkg)
+            self.known.sort()
+            write_package_list(filename, pkgs)
 
 
 if __name__ == '__main__':
