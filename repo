@@ -11,6 +11,16 @@ repo/
 |-- SOURCES
 `-- SRPMS
 
+
+!! Move output from mock build
+find /data/mock -name "*.rpm" |wc -l
+find /data/mock -name "*.rpm" -exec cp {} /data/rpms/ \;
+ll /data/rpms |wc -l
+cd /data/rpms/
+mv *.noarch.rpm /data/repo/RPMS/entreprise/6/r-repo/noarch/
+mv *.x86_64.rpm /data/repo/RPMS/entreprise/6/r-repo/x86_64/
+mv *.src.rpm ~/rpmbuild/SRPMS/
+
 !! Move/Copy RPMs there:
 cp ~/rpmbuild/RPMS/noarch/* /data/repo/RPMS/entreprise/6/r-repo/noarch/
 cp ~/rpmbuild/RPMS/x86_64/ /data/repo/RPMS/entreprise/6/r-repo/x86_64/
