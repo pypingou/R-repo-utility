@@ -36,7 +36,7 @@ def setup_parser():
     parser = argparse.ArgumentParser(version='0.1.0',
     usage='%(prog)s [options]', prog="Rrepo2rpm")
     # General connection options
-    parser.add_argument('--input', dest='inputfile',
+    parser.add_argument('inputfile',
         help='Input file containing the rpm to build.')
     parser.add_argument('--mock-config', default='fedora-rawhide-i386',
         help='Mock configuration to use (defaults to fedora-rawhide-i386).')
