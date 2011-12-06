@@ -19,6 +19,7 @@ ll /data/rpms |wc -l
 cd /data/rpms/
 mv *.noarch.rpm /data/repo/RPMS/entreprise/6/r-repo/noarch/
 mv *.x86_64.rpm /data/repo/RPMS/entreprise/6/r-repo/x86_64/
+mv *.i686.rpm /data/repo/RPMS/entreprise/6/r-repo/i386/
 mv *.src.rpm ~/rpmbuild/SRPMS/
 
 !! Move/Copy RPMs there:
@@ -29,4 +30,5 @@ cp ~/rpmbuild/RPMS/x86_64/ /data/repo/RPMS/entreprise/6/r-repo/x86_64/
 cd /data/repo/RPMS/entreprise/6/r-repo/
 createrepo noarch
 createrepo x86_64
+createrepo i386
 
