@@ -1,20 +1,7 @@
 [r-repo]
 name=R RPM for Enterprise Linux $releasever - $basearch
-baseurl=file:///data/repo/RPMS/entreprise/$releasever/r-repo/$basearch
-#baseurl=http://rpms.famillecollet.com/enterprise/$releasever/remi/$basearch/
-#mirrorlist=http://rpms.famillecollet.com/enterprise/$releasever/remi/mirror
+baseurl=http://repo.r-repo.org/RPMS/entreprise/$releasever/r-repo/$basearch
 enabled=1
-gpgcheck=0
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-r-repo
-#failovermethod=priority
-
-[r-repo-noarch]
-name=R RPM for Enterprise Linux $releasever - $basearch
-baseurl=file:///data/repo/RPMS/entreprise/$releasever/r-repo/noarch
-#baseurl=http://rpms.famillecollet.com/enterprise/$releasever/remi/$basearch/
-##mirrorlist=http://rpms.famillecollet.com/enterprise/$releasever/remi/mirror
-enabled=1
-gpgcheck=0
-#gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-r-repo
-#failovermethod=priority
-
+gpgcheck=1
+gpgkey=http://r-repo.org/public/RPM-GPG-KEY-R-repo
+failovermethod=priority
