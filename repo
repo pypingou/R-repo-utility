@@ -11,6 +11,18 @@ repo/
 |-- SOURCES
 `-- SRPMS
 
+!! Script order:
+  multi_rpm_builder -> text an input file and a given mock_config and run
+all the package mentionned in the text file using the given mock configu
+
+  rpm_repo_rebuilder -> takes the same text file as multi_rpm_builder and
+the part of a mock config, checks on which arch each of the package
+mentionned in the filename are already available (using repoquery) and
+rebuild the package for the arch for which the package is not available.
+
+  rpm_rebuilder -> From a given text file containing the package to
+update, rebuild the package all arch using the part of the mock_config
+provided.
 
 !! Move output from mock build
 find /data/mock -name "*.rpm" |wc -l
