@@ -33,8 +33,7 @@ def setup_parser():
     """
     Set the command line arguments.
     """
-    parser = argparse.ArgumentParser(version='0.1.0',
-    usage='%(prog)s [options]', prog="Rrepo2rpm")
+    parser = argparse.ArgumentParser()
     # General connection options
     parser.add_argument('inputfile',
         help='Input file containing the rpm to build.')
