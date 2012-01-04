@@ -79,7 +79,7 @@ def setup_parser():
     usage='%(prog)s [options]', prog="Rrepo2rpm")
     # General connection options
     parser.add_argument('--all-dep', action='store_true',
-        help='Whether you want to use all the dependencies (Depends, Suggests and Imports) or just the Depends (default)')
+        help='Whether you want to use all the dependencies (Depends, Suggests and Imports) or just the Depends and Imports (default)')
     parser.add_argument('--config', default='repos.cfg',
         help='A repo configuration files, it will use repos.cfg by default in the current working directory.')
     parser.add_argument('--exclude-rpm-dir',
@@ -156,11 +156,11 @@ class RPackage(object):
         dep = []
         if 'Depends' in self.__dict.keys():
             dep.extend(self.__dict['Depends'])
-        elif 'Suggests' in self.__dict.keys():
-            dep.extend(self.__dict['Suggests'])
+        if 'Imports' in self.__dict.keys():
+            dep.extend(self.__dict['Imports'])
         if all_included:
-            if 'Imports' in self.__dict.keys():
-                dep.extend(self.__dict['Imports'])
+            if 'Suggests' in self.__dict.keys():
+                dep.extend(self.__dict['Suggests'])
         return dep
 
     def __str__(self):
