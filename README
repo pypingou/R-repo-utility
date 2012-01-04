@@ -1,0 +1,11 @@
+R-repo-utility
+==============
+
+Utility scripts and files for the r-repo project.
+
+The R-repo project aims at providing RPMs for R
+libraries. See http://r-repo.org for more information.
+
+This utility project contains the scripts and files used
+to build this project.
+See the `repo` file for more detailed information
