@@ -12,6 +12,12 @@ repo/
 `-- SRPMS
 
 !! Script order:
+  Rdepgenerator.py -> Generate the files level_*_packages where * is the
+iteration number. level_0_packages is therefore the list of packages which
+can be built with only R installed (and the packages it provides).
+level_1_packages is the list of packages which can be built with R and the
+packages built on the level 0, and so on.
+
   multi_rpm_builder -> text an input file and a given mock_config and run
 all the package mentionned in the text file using the given mock configu
 
