@@ -26,11 +26,11 @@ the part of a mock config, checks on which arch each of the package
 mentionned in the filename are already available (using repoquery) and
 rebuild the package for the arch for which the package is not available.
 
-  rpm_rebuilder -> From a given text file containing the package to
+  update_rpms -> From a given text file containing the package to
 update, rebuild the package all arch using the part of the mock_config
 provided.
 
-!! Move output from mock build
+## Move output from mock build
 find /data/mock -name "*.rpm" |wc -l
 find /data/mock -name "*.rpm" -exec cp {} /data/rpms/ \;
 ll /data/rpms |wc -l
@@ -40,13 +40,17 @@ mv *.x86_64.rpm /data/repo/RPMS/entreprise/6/r-repo/x86_64/
 mv *.i686.rpm /data/repo/RPMS/entreprise/6/r-repo/i386/
 mv *.src.rpm ~/rpmbuild/SRPMS/
 
-!! Move/Copy RPMs there:
-cp ~/rpmbuild/RPMS/noarch/* /data/repo/RPMS/entreprise/6/r-repo/noarch/
-cp ~/rpmbuild/RPMS/x86_64/ /data/repo/RPMS/entreprise/6/r-repo/x86_64/
+## Move/Copy RPMs there: -- Only if used with rpmbuild
+#cp ~/rpmbuild/RPMS/noarch/* /data/repo/RPMS/entreprise/6/r-repo/noarch/
+#cp ~/rpmbuild/RPMS/x86_64/ /data/repo/RPMS/entreprise/6/r-repo/x86_64/
 
-!! Create the repo
 cd /data/repo/RPMS/entreprise/6/r-repo/
-createrepo noarch
+## Create the symlink between noarch and arch:
+
+## Create the repo
 createrepo x86_64
 createrepo i386
 
+## Clean afterward
+cd /data/
+rm -rf /data/mock/results/*
