@@ -54,3 +54,7 @@ createrepo i386
 ## Clean afterward
 cd /data/
 rm -rf /data/mock/results/*
+
+## Sign rpm
+cd /data/repo/RPMS/entreprise/6/r-repo/
+rpm --addsign noarch/*.rpm i386/*.rpm x86_64/*.rpm
